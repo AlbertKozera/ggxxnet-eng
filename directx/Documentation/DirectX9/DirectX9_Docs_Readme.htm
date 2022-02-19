@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Microsoft DirectX 9.0 SDK Readme File</title>
+</head>
+
+<body>
+
+<h1>Microsoft DirectX 9.0 SDK Readme File</h1>
+<h2>October 2004</h2>
+<h2>(c) Microsoft Corporation, 2004. All rights reserved.</h2>
+
+<p>This document provides late-breaking or other information that supplements the Microsoft DirectX 9.0 software development kit (SDK) documentation.</p>
+
+
+<h2>CONTENTS</h2>
+<ol>
+<li><a href="#printing_issues">PRINTING ISSUES</a></li>
+ 
+<li><a href="#directx_graphics">DIRECTX GRAPHICS</a></li>
+	<ul>
+      <li>New Features and API Changes</li>
+	  <li>PIX Command-Line Options</li>
+	</ul>   
+
+<li><a href="#direct_show">DIRECTSOUND</a></li>
+	<ul>
+	  <li>No DirectSound Debugging</li>
+	</ul>
+	
+<li><a href="#direct_show">DIRECTSHOW</a></li>
+	<ul>
+	  <li>No DirectShow Debug DLL</li>
+	</ul>
+
+</ol>
+
+
+<h3><a name="printing_issues">PRINTING ISSUES</a></h3>
+
+     <p>If you are trying to print a heading and all of its subtopics, there are several known issues.</p>
+	 <ul>
+       <li>The pages will have no formatting.</li>
+       <li>If you are using Microsoft Internet Explorer 5.5, content may be missing from your printed pages. Use Internet Explorer 5.0 or 6.0 instead. The recommended printing method is to print one topic at a time. The printed page should then contain all the formatting and content.</li>
+	</ul>
+
+
+<h3><a name="directx_graphics">DIRECTX GRAPHICS</a></h3>
+
+
+     <h4>New Features and API Changes</h4>
+	 
+	 <p>Major new features and application programming interface (API) changes are noted on the documentation page, "What's New in DirectX Graphics."</p>
+
+	 <h4>PIX Command-Line Options</h4>
+	 
+	 <p>The following command-line options are available to modify behavior of the PIX tool.
+	 <ul>
+	 	<li><b>Launch PIX and open a .PIXRun log file:</b></li>
+	 <![CDATA[><pre>
+PIXWin.exe aaa.PIXRun [-playstandalone]
+</pre><![CDATA[]]&gt;]]>
+			<table border>
+				<tr> <th align="left">Optional Command</th> <th align="left">Description</th> </tr>
+				<tr> <td>-playstandalone</td> <td>Plays back in a window a captured Direct3D stream.</td> </tr>
+			</table>
+	 		<p></p>
+	 <li><b>Launch PIX and open a .PIXexp experiment file:</b></li>
+	 <![CDATA[><pre>
+PIXWin.exe aaa.PIXExp [-targetpath path] [-targetstartfolder folder] [-targetargs args] [-start]
+</pre><![CDATA[]]&gt;]]>
+			<table border>
+				<tr> <th align="left">Optional Command</th> <th align="left">Description</th> </tr>
+				<tr> <td>-targetpath path</td> <td>Overrides the target program path with <i>path</i>.</td> </tr>
+				<tr> <td>-targetstartfolder folder</td> <td>Overrides the target start folder with <i>folder</i>.</td> </tr>
+				<tr> <td>-targetargs args</td> <td>Overrides target command-line arguments with <i>args</i>.</td> </tr>
+				<tr> <td>-start</td> <td>Starts running the experiment.</td> </tr>
+			</table>
+	 		<p></p>
+	 <li><b>Launch PIX and open an image file in the Image Compare View:</b></li>
+	 <![CDATA[><pre>
+PIXWin.exe aaa.png [bbb.png] [-appenddiffmeasure path]
+</pre><![CDATA[]]&gt;]]>
+			<table border>
+				<tr> <th align="left">Optional Command</th> <th align="left">Description</th> </tr>
+				<tr> <td>bbb.png</td> <td>Also opens file bbb.png for comparison with file aaa.png.</td> </tr>
+				<tr> <td>-appenddiffmeasure path</td> <td>Compares files aaa.png and bbb.png, and appends a numerical measurement of the difference between the images to the text file at the specified path.</td> </tr>
+			</table>
+	 		<p></p>
+	 </ul>
+	 
+<h3><a name="direct_show">DIRECTSOUND</a></h3>
+
+	 <h4>No DirectSound Debugging</h4>
+  
+  	 <p>Support for debugging DirectSound has been removed from this SDK Update.</p>
+
+
+<h3><a name="direct_show">DIRECTSHOW</a></h3>
+
+     <h4>No DirectShow Debug DLL</h4>
+  
+  	 <p>No DirectShow Debug DLL ships with this SDK release, so when you run DirectSetup, only the DirectShow Retail installation option is available.</p>
+
+  </body>
+</html>

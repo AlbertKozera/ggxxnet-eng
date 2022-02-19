@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="zlib125">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/zlib125/zlib125.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

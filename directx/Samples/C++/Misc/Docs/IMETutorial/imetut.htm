@@ -1,0 +1,390 @@
+<HTML>
+<HEAD>
+<TITLE>Tutorial: Installing and Using Input Method Editors</TITLE>
+<STYLE TYPE="text/css">
+.h1 { font-family: tahoma; font-weight: bold; font-size: 130%; }
+.h2 { font-family: arial; font-weight: bold; vertical-align: super; }
+.h3 { font-family: arial; font-size: 12px; font-weight: bold; vertical-align: super; line-height: 20px }
+.p { font-family: arial; font-size: 80%; }
+.fig { font-family: arial; font-weight: bold; font-size: 90%; }
+.header { padding: 3px; font-family: tahoma; font-weight: bold; color: white }
+.chart { font-family: monospace; font-size: 75%; }
+.table { font-family: arial; font-size: 100%; }
+</STYLE>
+</HEAD>
+
+<BODY bgColor=#ffffff MARGINHEIGHT="2" TOPMARGIN=2 LEFTMARGIN=2 RIGHTMARGIN=2>
+
+<!-- HEADER - DO NOT MODIFY -->
+<TABLE BACKGROUND="header_background.gif" WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>
+<TR>
+<TD ALIGN="left"><IMG SRC="header_left.gif" BORDER=0></TD>
+<TD ALIGN="right"><IMG SRC="header_right.gif" BORDER=0></TD>
+</TR>
+</TABLE>
+<!-- END HEADER -->
+
+<!-- MASTER TABLE - DO NOT MODIFY -->
+<TABLE WIDTH="100%" BORDER=0 CELLPADDING=20>
+<TR>
+<TD CLASS="p">
+<!-- END MASTER TABLE -->
+
+<FONT CLASS="h1">
+<!-- INSERT SAMPLE NAME -->
+Tutorial: Installing and Using Input Method Editors
+<!-- END SAMPLE NAME -->
+</FONT>
+<HR>
+
+<BR CLEAR="left">
+<P>
+
+This tutorial details the steps necessary to install Input Method Editors (IMEs) for
+Traditional Chinese, Simplified Chinese, Japanese, and Korean on a WindowsXP system
+and using them to type in a common application, Notepad.
+<p>
+<a href="#Install">Installing Input Method Editors</a><br>
+<a href="#TradChin">Using Input Method Editors in Traditional Chinese</a><br>
+<a href="#SimpChin">Using Input Method Editors in Simplified Chinese</a><br>
+<a href="#Japanese">Using Input Method Editors in Japanese</a><br>
+<a href="#Korean">Using Input Method Editors in Korean</a><br>
+<p>
+<br>
+
+<A NAME="Install"></A>
+<FONT CLASS="h2">Installing Input Method Editors</FONT><BR>
+
+Input Method Editors are not installed on WindowsXP systems by default.  To install,
+a user must follow these steps:
+
+<ol>
+<li>Open Control Panel.  Open the Regional and Language Options applet.<br><br>
+<li>After the Regional and Language Options dialog shows up, click on the Languages
+tab, and check the box that says "Install files for East Asian languages."
+<p>
+<center><img src="Install1.png"></center>
+<p>
+<li>Click OK. Windows will install the necessary files and prompt the user to reboot.
+Click Yes to reboot.<br><br>
+<li>After rebooting, open the Regional and Language Options applet once again.<br><br>
+<li>Click on the Languages tab, then click the Details... button.  The Text Services and
+Input Languages dialog shows up.<br><br>
+<center><img src="Install2.png"></center>
+<p>
+<li>Click the Add... button.  The Add Input Language dialog shows up.<br><br>
+<li>Select "Chinese (Taiwan)" for input language and "Microsoft New Phonetic IME 2002a" for
+keyboard layout/IME. Click OK.<p>
+<center><img src="Install3.png"></center>
+<p>
+<li>Click the Add... button again, then select "Chinese (PRC)" for input language and "Chinese (Simplified) - Microsoft Pinyin
+IME 3.0" for keyboard layout/IME. Click OK.<p>
+<center><img src="Install4.png"></center>
+<p>
+<li>Click the Add... button again, then select "Japanese" for input language and "Microsoft IME Standard 2002 ver. 8.1" for
+keyboard layout/IME. Click OK.<p>
+<center><img src="Install5.png"></center>
+<p>
+<li>Click the Add... button again, then select "Korean" for input language and "Korean Input System (IME 2002)" for
+keyboard layout/IME. Click OK.<p>
+<center><img src="Install6.png"></center>
+<p>
+<li>In the Text Services and Input Languages dialog, the "Installed services" list box should
+contain the 4 newly-added IMEs.
+<p>
+<center><img src="Install7.png"></center>
+<p>
+<li>Click OK to close the "Text Services and Input Languages" dialog.  Click OK to close the
+"Regional and Language Options" dialog.  The taskbar should now contain a language indicator.
+The existence of the indicator signifies that more than one input language have been
+installed on the system.
+<p>
+<center><img src="Install8.png"></center>
+<p>
+</ol>
+
+<br>
+<br>
+<hr>
+<A NAME="TradChin"></A>
+<FONT CLASS="h2">Using Input Method Editors in Traditional Chinese</FONT><BR>
+
+This section is a walkthrough of using the Traditional Chinese IME (New Phonetic) with Notepad to enter
+a few Chinese characters.
+<p>
+
+<ol>
+<li>Launch Notepad.  Type some characters in Notepad.  These characters will help visualize
+the IME window better later.
+<p>
+<center><img src="Usage1.png"></center>
+<p>
+<li>With the Notepad being the active application, click on the language
+indicator, and select the "Chinese (Taiwan)" input language.  The indicator text changes
+to CH to reflect the new input language.
+<p>
+<center><img src="Usage2.png"></center>
+<p>
+<li>In Notepad, press Home so that the caret is at the beginning of the line.  Press
+"S", "U".  The screen looks similar to the figure below.  The small vertical
+rectangle is the reading window, which displays the current reading string.  Currently,
+the reading string has two characters, as a result from typing "S" and "U".
+<p>
+<center><img src="Usage3.png"></center>
+<p>
+<li>Press "3".  Now the screen looks like the following figure.  Because S+U+3 is a complete
+pronunciation in Traditional Chinese, the IME has enough knowledge to anticipate the
+character that the user may have intended to enter.  The reading window disappears because
+the user has entered a complete pronunciation.  A character shows up where the Notepad caret
+is.  This character is not part of Notepad, instead it is displayed in another window on
+top of Notepad.  This is apparent because the existing characters in Notepad are hidden
+beneath the character.  The window is called the composition window, and the string in it is
+called the composition string.  The composition string is underlined as an indication
+to the user.
+<p>
+<center><img src="Usage4.png"></center>
+<p>
+<li>Now press "C", "L", "3" to enter another character similar to how the first is entered.
+Note that the reading window shows up when "C" is pressed and disappears when "3" is pressed.
+The screen looks like the figure below.  The composition string now contains two characters.
+<p>
+<center><img src="Usage5.png"></center>
+<p>
+<li>Press the down arrow once.  A window appears on top of Notepad similar to the figure below.
+This window is called the candidate window.  It displays a list of characters or phrases with
+the very pronunciation that the user has typed.  The user can select the intended word from the
+entries on the candidate list.  In this example, there are three candidate characters with the
+same pronunciation.
+<p>
+<center><img src="Usage6.png"></center>
+<p>
+<li>Press 2 to select the second entry.  Note that the candidate window closes, and the composition
+string is updated with the character selected.
+<p>
+<center><img src="Usage7.png"></center>
+<p>
+<li>Press Enter.  This tells the IME that the composition is complete and the string should be
+sent to the application, Notepad in this example.  The screen now looks like the following figure.
+The composition window closes, and the two characters are sent to Notepad via WM_CHAR.  The
+underline is gone because the two characters shown are part of Notepad's text.  The existing
+text "ABCDEFG" in Notepad is moved to the right because two more characters have been inserted.
+You have now successfully entered two Traditional Chinese characters using an IME.
+<p>
+<center><img src="Usage8.png"></center>
+<p>
+
+<br>
+<hr>
+<A NAME="SimpChin"></A>
+<FONT CLASS="h2">Using Input Method Editors in Simplified Chinese</FONT><BR>
+
+This section is a walkthrough of using the Simplified Chinese IME (PinYin) with Notepad to enter
+a few Chinese characters.
+<p>
+
+<ol>
+<li>Launch Notepad.  Type some characters in Notepad.  These characters will help visualize
+the IME window better later.
+<p>
+<center><img src="Usage1.png"></center>
+<p>
+<li>With the Notepad being the active application, click on the language
+indicator, and select the "Chinese PRC)" input language.  The indicator text changes
+to CH to reflect the new input language.
+<p>
+<center><img src="Usage9.png"></center>
+<p>
+<li>In Notepad, press Home so that the caret is at the beginning of the line.  Press
+"N", "I".  The screen looks similar to the figure below.  The small horizontal
+rectangle is the reading window, which displays the current reading string.  Currently,
+the reading string is "ni" as a result from typing "N" and "I".
+<p>
+<center><img src="Usage10.png"></center>
+<p>
+<li>Press "3".  Now the screen looks like the following figure.  Because N+I+3 is a complete
+pronunciation in Simplified Chinese Pinyin, the IME has enough knowledge to anticipate the
+character that the user may have intended to enter.  The reading window disappears because
+the user has entered a complete pronunciation.  A character shows up where the Notepad caret
+is.  This character is not part of Notepad, instead it is displayed in another window on
+top of Notepad.  This is apparent because the existing characters in Notepad are hidden
+beneath the character.  The window is called the composition window, and the string in it is
+called the composition string.  The composition string is underlined as an indication
+to the user.
+<p>
+<center><img src="Usage11.png"></center>
+<p>
+<li>Now press "H", "A", "O", "3" to enter another character similar to how the first is entered.
+Note that the reading window shows up when "H" is pressed and disappears when "3" is pressed.
+The screen looks like the figure below.  The composition string now contains two characters.
+<p>
+<center><img src="Usage12.png"></center>
+<p>
+<li>Press the left arrow once.  The composition caret moves one character to the left, at the
+second character typed in. A window appears on top of Notepad similar to the figure below.  This
+window is called the candidate window.  It displays a list of characters or phrases with
+the very pronunciation that the user has typed.  The user can select the intended word from the
+entries on the candidate list.  In this example, there are two candidate characters with the
+same pronunciation.
+<p>
+<center><img src="Usage13.png"></center>
+<p>
+<li>Press 2 to select the second entry.  Note that the candidate window closes, and the composition
+string is updated with the character selected.
+<p>
+<center><img src="Usage14.png"></center>
+<p>
+<li>Press Enter.  This tells the IME that the composition is complete and the string should be
+sent to the application, Notepad in this example.  The screen now looks like the following figure.
+The composition window closes, and the two characters are sent to Notepad via WM_CHAR.  The
+underline is gone because the two characters shown are part of Notepad's text.  The existing
+text "ABCDEFG" in Notepad is moved to the right because two more characters have been inserted.
+You have now successfully entered two Simplified Chinese characters using an IME.
+<p>
+<center><img src="Usage15.png"></center>
+<p>
+</ol>
+
+<br>
+<hr>
+<A NAME="Japanese"></A>
+<FONT CLASS="h2">Using Input Method Editors in Japanese</FONT><BR>
+
+This section is a walkthrough of using the Japanese IME with Notepad to enter
+a few Japanese characters.
+<p>
+
+<ol>
+<li>Launch Notepad.  Type some characters in Notepad.  These characters will help visualize
+the IME window better later.
+<p>
+<center><img src="Usage1.png"></center>
+<p>
+<li>With the Notepad being the active application, click on the language
+indicator, and select the "Japanese" input language.  The indicator text changes
+to JP to reflect the new input language.
+<p>
+<center><img src="Usage16.png"></center>
+<p>
+<li>In Notepad, press Home so that the caret is at the beginning of the line.  Press
+"N", "I".  The screen looks like the following figure.  Because N+I is a complete
+pronunciation in Japanese, the IME has enough knowledge to anticipate the
+character that the user may have intended to enter.  A character shows up where the Notepad caret
+is.  This character is not part of Notepad, instead it is displayed in another window on
+top of Notepad.  This is apparent because the existing characters in Notepad are hidden
+beneath the character.  The window is called the composition window, and the string in it is
+called the composition string.  The composition string is underlined as an indication
+to the user.
+<p>
+<center><img src="Usage17.png"></center>
+<p>
+<li>Now press "H", "O", "N", "G", "O" to enter two more characters similar to how the first is entered.
+The screen looks like the figure below.  The composition string now contains three characters.
+<p>
+<center><img src="Usage18.png"></center>
+<p>
+<li>Press the Space Bar.  This tells the IME that the user would like to convert the entered text
+into clauses.  In the figure below, the IME converts the pronunciation "Nihongo" to a clause written
+in Kanji with the meaning of "Japanese Language."
+<p>
+<center><img src="Usage19.png"></center>
+<p>
+<li>Press the down arrow once.  A window appears on top of Notepad similar to the figure below.
+This window is called the candidate window.  It displays a list of clauses with
+the very pronunciation that the user has typed.  The user can select the intended word from the
+entries on the candidate list.  In this example, there are three candidate characters with the
+same pronunciation.  Note that the second entry is highlighted, and the composition string changes.
+This is caused by pressing the down arrow, which tells the IME to select the entry after one
+that was previously displaying.
+<p>
+<center><img src="Usage20.png"></center>
+<p>
+<li>Press 2 to select the second entry.  Note that the candidate window closes.
+<p>
+<center><img src="Usage21.png"></center>
+<p>
+<li>Press Enter.  This tells the IME that the composition is complete and the string should be
+sent to the application, Notepad in this example.  The screen now looks like the following figure.
+The composition window closes, and the two characters are sent to Notepad via WM_CHAR.  The
+underline is gone because the two characters shown are part of Notepad's text.  The existing
+text "ABCDEFG" in Notepad is moved to the right because two more characters have been inserted.
+You have now successfully entered a few Japanese characters using an IME.
+<p>
+<center><img src="Usage22.png"></center>
+<p>
+
+<hr>
+<A NAME="Korean"></A>
+<FONT CLASS="h2">Using Input Method Editors in Korean</FONT><BR>
+
+This section is a walkthrough of using the Korean IME with Notepad to enter
+a few Korean characters.
+<p>
+
+<ol>
+<li>Launch Notepad.  Type some characters in Notepad.  These characters will help visualize
+the IME window better later.
+<p>
+<center><img src="Usage1.png"></center>
+<p>
+<li>With the Notepad being the active application, click on the language
+indicator, and select the "Korean" input language.  The indicator text changes
+to KO to reflect the new input language.
+<p>
+<center><img src="Usage23.png"></center>
+<p>
+<li>In Notepad, press Home so that the caret is at the beginning of the line, then press
+"G".  The screen looks similar to the figure below.  The phonetic element corresponding to
+"G" appears on Notepad, and is highlighted with a block caret.  This hightlighted character
+is called the composition string.  Note that unlike the IME for other languages, the
+composition string is sent to Notepad and inserted to the text as soon as the user enters
+a single phonetic element.  This is evident as the existing text in Notepad moves to the
+right.
+<p>
+<center><img src="Usage24.png"></center>
+<p>
+<li>At this time, the composition string consists of an interim character.  It is
+so-called because any additional phonetic elements entered by the user change the composition
+string in-place.  Now press "K", "S". Note that the interim character changes with each
+keystroke.
+<p>
+<center><img src="Usage25.png"></center>
+<p>
+<li>Now press the right Control key.  A candidate window shows up listing the Hanja characters
+the user can select for the pronunciation entered, GKS.
+<p>
+<center><img src="Usage26.png"></center>
+<p>
+<li>Press 1 to select the first entry.  Note that the candidate window closes, and the composition
+string is updated with the character selected.
+<p>
+<center><img src="Usage27.png"></center>
+<p>
+<li>Press "R", "N", "R", right Control to enter another character similar to how the first is entered.
+<p>
+<center><img src="Usage28.png"></center>
+<p>
+<li>Press 1 to select the first entry.  You have now successfully entered two Korean characters
+using an IME.  The Korean characters are part of the Notepad's text, not any other windows.
+<p>
+<center><img src="Usage29.png"></center>
+<p>
+</ol>
+
+<!-- FOOTER - DO NOT MODIFY -->
+<BR clear="left">
+<BR clear="left">
+<BR clear="left">
+<HR>
+<CENTER>
+Copyright (c) Microsoft Corporation. All rights reserved.
+</CENTER>
+<!-- END FOOTER -->
+
+<!-- MASTER TABLE - DO NOT MODIFY -->
+</TD>
+</TR>
+</TABLE>
+<!-- END MASTER TABLE -->
+
+</BODY>
+</HTML>

@@ -1,0 +1,275 @@
+<HTML>
+<HEAD>
+<TITLE>Shortcut keys</TITLE>
+<STYLE TYPE="text/css">
+.h1 { font-family: tahoma; font-weight: bold; font-size: 130%; }
+.h2 { font-family: arial; font-weight: bold; vertical-align: super; }
+.h3 { font-family: arial; font-size: 12px; font-weight: bold; vertical-align: super; line-height: 20px }
+.p { font-family: arial; font-size: 80%; }
+.fig { font-family: arial; font-weight: bold; font-size: 90%; }
+.header { padding: 3px; font-family: tahoma; font-weight: bold; color: white }
+.chart { font-family: monospace; font-size: 75%; }
+.table { font-family: arial; font-size: 100%; }
+</STYLE>
+</HEAD>
+
+<BODY bgColor=#ffffff MARGINHEIGHT="2" TOPMARGIN=2 LEFTMARGIN=2 RIGHTMARGIN=2>
+
+<!-- HEADER - DO NOT MODIFY -->
+<TABLE BACKGROUND="header_background.gif" WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>
+<TR>
+<TD ALIGN="left"><IMG SRC="header_left.gif" BORDER=0></TD>
+<TD ALIGN="right"><IMG SRC="header_right.gif" BORDER=0></TD>
+</TR>
+</TABLE>
+<!-- END HEADER -->
+
+<!-- MASTER TABLE - DO NOT MODIFY -->
+<TABLE WIDTH="100%" BORDER=0 CELLPADDING=20>
+<TR>
+<TD CLASS="p">
+<!-- END MASTER TABLE -->
+
+<FONT CLASS="h1">
+<!-- INSERT SAMPLE NAME -->
+Disabling shortcut keys to prevent accidental task switching
+<!-- END SAMPLE NAME -->
+</FONT>
+<HR>
+
+<BR CLEAR="left">
+<P>
+This document describes how to temporarily disable Windows keyboard shortcuts to prevent distruption of game play for full screen games.  Because SHIFT and CTRL keys are often used as fire or run buttons in games accidentally pressing the Windows Key which is near these keys can cause the user to suddenly jump out of the application, ruining the game experience. Also using the SHIFT key as a game button also can cause the StickyKeys shortcut which by default displays a warning dialog.  To avoid these issues, you should disable these keys when running full screen and restore them back to the default when running windowed or shutting down.  The details of how to do this are explained below.
+<p>
+<FONT CLASS="h2">Disabling the Windows Key</FONT><BR>
+There are two methods for disabling the Windows key. 
+<p>
+The first method is to use a low level keyboard hook that can filter out the Windows key from being processed. This method is used by the sample framework, and is illustrated in the code snippet below.  If instead of filtering out the Windows key, you want to allow the user to map it to an action then this is also possible.  You should note that this method does work when running on a limited user account but only works on on Windows 2000 and above.  
+<p>
+
+<TABLE STYLE="MARGIN-LEFT: -4px" CELLSPACING="4" CELLPADDING="10" BORDER="0">
+<TR>
+<TD CLASS="chart" BGCOLOR="#eeeeee">
+<PRE>
+HHOOK g_hKeyboardHook;
+BOOL g_bFullscreen;
+
+INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR, int )
+{
+    // Initialization
+    g_hKeyboardHook = SetWindowsHookEx( WH_KEYBOARD_LL,  LowLevelKeyboardProc, GetModuleHandle(NULL), 0 );
+
+    // 
+    // main application code here
+    // 
+
+    // Cleanup before shutdown
+    UnhookWindowsHookEx( g_hKeyboardHook );
+}
+
+
+LRESULT CALLBACK LowLevelKeyboardProc( int nCode, WPARAM wParam, LPARAM lParam )
+{
+    if (nCode < 0 || nCode != HC_ACTION )  // do not process message 
+        return CallNextHookEx( g_hKeyboardHook, nCode, wParam, lParam); 
+
+    bool bEatKeystroke = false;
+    KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
+    switch (wParam) 
+    {
+        case WM_KEYDOWN:  
+        case WM_KEYUP:    
+        {
+            bEatKeystroke = (g_bFullscreen && g_bWindowActive && ((p->vkCode == VK_LWIN) || (p->vkCode == VK_RWIN)));
+            break;
+        }
+    }
+
+    if( bEatKeystroke )
+        return 1;
+    else
+        return CallNextHookEx( g_hKeyboardHook, nCode, wParam, lParam );
+}
+
+
+LRESULT CALLBACK WndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
+{
+    switch( uMsg )
+    {
+       case WM_ACTIVATEAPP:
+            // g_bWindowActive is used to control if the Windows key is filtered by the keyboard hook or not.
+            if( wParam == TRUE )
+                g_bWindowActive  = true;           
+            else 
+                g_bWindowActive  = false;           
+            break;
+    }
+}
+</PRE>
+</TD>
+</TR>
+<tr>
+<td class="fig">
+Figure 1. Using a low level keyboard hook to disable the Windows key
+</td>
+</tr>
+</TABLE>
+<br>
+
+It is important to realize that this low level keyboard hook remains in effect even if user minimizes the window or switches to another application.  This means that you must be careful to ensure the Windows key is not disabled when the application is deactivated.  The code above does this by handling WM_ACTIVATEAPP.
+<p>
+The second method for disabling the Windows key is to use DirectInput. When setting the cooperative level for your DirectInput keyboard device using the LPDIRECTINPUTDEVICE8::SetCooperativeLevel() command, simply include the DISCL_NOWINKEY flag in the second parameter.  As shown in the code snippet below:
+
+<p>
+<TABLE STYLE="MARGIN-LEFT: -4px" CELLSPACING="4" CELLPADDING="10" BORDER="0">
+<TR>
+<TD CLASS="chart" BGCOLOR="#eeeeee">
+<PRE>
+LPDIRECTINPUT8       g_pDI       = NULL; // The DirectInput object         
+LPDIRECTINPUTDEVICE8 g_pKeyboard = NULL; // The keyboard device
+
+if( SUCCEEDED( DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION,  
+    IID_IDirectInput8, (VOID**)&g_pDI, NULL ) ) )
+{
+    if( SUCCEEDED( g_pDI->CreateDevice( GUID_SysKeyboard, &g_pKeyboard, NULL ) ) )
+    {
+        g_pKeyboard->SetDataFormat( &c_dfDIKeyboard );
+        g_pKeyboard->SetCooperativeLevel( hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY );
+    }
+}
+
+// Every so often poll the keyboard device to ensure that it’s acquired.
+hr = g_pKeyboard->Poll();
+if( FAILED(hr) )
+    g_pKeyboard->Acquire();
+</PRE>
+</TD>
+</TR>
+<tr>
+<td class="fig">
+Figure 2. Using a DirectInput to disable the Windows key
+</td>
+</tr>
+</TABLE>
+<br>
+
+<p>
+<FONT CLASS="h2">Disabling accessibility shortcut keys</FONT><BR>
+
+Windows includes accessibility features such as StickyKeys, FilterKeys, and ToggleKeys.  Each of these serves a different purpose.  For example, StickyKeys is designed for people who have difficulty holding down two or more keys simultaneously.  Each of these accessibility features also has a keyboard shortcut that allows the feature to be turned on or off.  For example, the StickyKeys shortcut is triggered by pressing the SHIFT key 5 times.  If the SHIFT key is also used in the game, the user could accidentally trigger this shortcut during game play.  When the shortcut is activated, Windows will by default present a warning dialog which will cause a full screen exclusive game to minimize thereby disrupting game play.
+<p>
+Since the accessibility features are required for some customers and do not themselves interfere with full screen games, you should not change the accessibility settings.  However, since the shortcuts for the accessibility features can cause disruption, you should turn off the accessibility shortcut only when feature is not enabled using the SystemParametersInfo API.   It is important to realize that these changes are permanent even after the application has closed.  This means that you must be careful to restore the settings before shutting down the application.  Since it is possible for the application to fail to shut down correctly, optimally you should write these settings to permanent storage so they can be restored when the application is run again.  You could also use an execption handler to restore these settings if a crash occurs.
+<p>
+To turn off these shortcuts, you should:
+<ol>
+<li>Capture the current accessibility settings upon initialization</li>
+<li>Disable the accessibility shortcut upon going full screen if the accessibility feature is off</li>
+<li>Restore the accessibility settings when windowed or shutting down.</li>
+</ol>
+
+This method is used the sample framework, and is illustrated in the code snippet is show below.  Note that this method also works when running on a limited user account.
+
+<p>
+<TABLE STYLE="MARGIN-LEFT: -4px" CELLSPACING="4" CELLPADDING="10" BORDER="0">
+<TR>
+<TD CLASS="chart" BGCOLOR="#eeeeee">
+<PRE>
+STICKYKEYS g_StartupStickyKeys = {sizeof(STICKYKEYS), 0};
+TOGGLEKEYS g_StartupToggleKeys = {sizeof(TOGGLEKEYS), 0};
+FILTERKEYS g_StartupFilterKeys = {sizeof(FILTERKEYS), 0};    
+
+
+INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR, int )
+{
+    // Save the current sticky/toggle/filter key settings so they can be restored them later
+    SystemParametersInfo(SPI_GETSTICKYKEYS, sizeof(STICKYKEYS), &g_StartupStickyKeys, 0);
+    SystemParametersInfo(SPI_GETTOGGLEKEYS, sizeof(TOGGLEKEYS), &g_StartupToggleKeys, 0);
+    SystemParametersInfo(SPI_GETFILTERKEYS, sizeof(FILTERKEYS), &g_StartupFilterKeys, 0);
+
+    // Disable when full screen
+    AllowAccessibilityShortcutKeys( true );
+
+    // Restore back when going to windowed or shutting down
+    AllowAccessibilityShortcutKeys( false );
+}
+
+
+void AllowAccessibilityShortcutKeys( bool bAllowKeys )
+{
+    if( bAllowKeys )
+    {
+        // Restore StickyKeys/etc to original state and enable Windows key      
+        STICKYKEYS sk = g_StartupStickyKeys;
+        TOGGLEKEYS tk = g_StartupToggleKeys;
+        FILTERKEYS fk = g_StartupFilterKeys;
+        
+        SystemParametersInfo(SPI_SETSTICKYKEYS, sizeof(STICKYKEYS), &g_StartupStickyKeys, 0);
+        SystemParametersInfo(SPI_SETTOGGLEKEYS, sizeof(TOGGLEKEYS), &g_StartupToggleKeys, 0);
+        SystemParametersInfo(SPI_SETFILTERKEYS, sizeof(FILTERKEYS), &g_StartupFilterKeys, 0);
+    }
+    else
+    {
+        // Disable StickyKeys/etc shortcuts but if the accessibility feature is on, 
+        // then leave the settings alone as its probably being usefully used
+
+        STICKYKEYS skOff = g_StartupStickyKeys;
+        if( (skOff.dwFlags & SKF_STICKYKEYSON) == 0 )
+        {
+            // Disable the hotkey and the confirmation
+            skOff.dwFlags &= ~SKF_HOTKEYACTIVE;
+            skOff.dwFlags &= ~SKF_CONFIRMHOTKEY;
+
+            SystemParametersInfo(SPI_SETSTICKYKEYS, sizeof(STICKYKEYS), &skOff, 0);
+        }
+
+        TOGGLEKEYS tkOff = g_StartupToggleKeys;
+        if( (tkOff.dwFlags & TKF_TOGGLEKEYSON) == 0 )
+        {
+            // Disable the hotkey and the confirmation
+            tkOff.dwFlags &= ~TKF_HOTKEYACTIVE;
+            tkOff.dwFlags &= ~TKF_CONFIRMHOTKEY;
+
+            SystemParametersInfo(SPI_SETTOGGLEKEYS, sizeof(TOGGLEKEYS), &tkOff, 0);
+        }
+
+        FILTERKEYS fkOff = g_StartupFilterKeys;
+        if( (fkOff.dwFlags & FKF_FILTERKEYSON) == 0 )
+        {
+            // Disable the hotkey and the confirmation
+            fkOff.dwFlags &= ~FKF_HOTKEYACTIVE;
+            fkOff.dwFlags &= ~FKF_CONFIRMHOTKEY;
+
+            SystemParametersInfo(SPI_SETFILTERKEYS, sizeof(FILTERKEYS), &fkOff, 0);
+        }
+    }
+}
+</PRE>
+</TD>
+</TR>
+<tr>
+<td class="fig">
+Figure 3. Disabling accessibility shortcut keys 
+</td>
+</tr>
+</TABLE>
+<br>
+
+
+<!-- FOOTER - DO NOT MODIFY -->
+<BR clear="left">
+<BR clear="left">
+<BR clear="left">
+<HR>
+<CENTER>
+Copyright (c) Microsoft Corporation. All rights reserved.
+</CENTER>
+<!-- END FOOTER -->
+
+<!-- MASTER TABLE - DO NOT MODIFY -->
+</TD>
+</TR>
+</TABLE>
+<!-- END MASTER TABLE -->
+
+</BODY>
+</HTML>
